@@ -8,15 +8,20 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = OverworldGeyser.class, remap = false)
 public class MixinOverworldGeyserBlock implements FactoryBlock {
+    @Shadow @Final public static BooleanProperty SNOWY;
+
     @Override
     public BlockState getPolymerBlockState(BlockState state) {
-        return Blocks.STRUCTURE_VOID.getDefaultState();
+        return state.get(SNOWY) ? Blocks.SNOW.getDefaultState() : Blocks.STRUCTURE_VOID.getDefaultState();
     }
 
     @Override
