@@ -1,7 +1,0 @@
-{
-	"credit": "made by Motschen",
-	"parent": "rocks:block/geyser_off",
-	"textures": {
-		"2": "block/magma"
-	}
-}

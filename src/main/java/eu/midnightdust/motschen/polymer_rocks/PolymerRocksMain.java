@@ -10,10 +10,12 @@ import eu.midnightdust.motschen.polymer_rocks.block.ItemDisplayStickModel;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 
 import static eu.midnightdust.motschen.rocks.RocksMain.MOD_ID;
 
 public class PolymerRocksMain implements ModInitializer {
+    public static final Random random = Random.create();
 
     public void onInitialize() {
         PolymerResourcePackUtils.addModAssets(MOD_ID);

@@ -11,30 +11,43 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayStarfishModel extends BlockModel {
     private final Set<ItemDisplayElement> arms = HashSet.newHashSet(5);
     public static ItemStack RED;
     public static ItemStack ORANGE;
     public static ItemStack PINK;
+    public static ItemStack RED_FIRST;
+    public static ItemStack ORANGE_FIRST;
+    public static ItemStack PINK_FIRST;
 
     public static void initModels() {
-        RED = BaseItemProvider.requestModel(PolymerRocksMain.id("block/red_starfish_arm"));
-        ORANGE = BaseItemProvider.requestModel(PolymerRocksMain.id("block/orange_starfish_arm"));
-        PINK = BaseItemProvider.requestModel(PolymerRocksMain.id("block/pink_starfish_arm"));
+        RED = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_red_arm"));
+        ORANGE = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_orange_arm"));
+        PINK = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_pink_arm"));
+        RED_FIRST = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_red_first_arm"));
+        ORANGE_FIRST = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_orange_first_arm"));
+        PINK_FIRST = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_pink_first_arm"));
     }
 
     public ItemDisplayStarfishModel(BlockState state) {
         ItemStack modelStack = getModel(state);
+        int baseRotation = random.nextBetween(0, 360);
+        double xOffset = random.nextDouble() / 2 - 0.25;
+        double zOffset = random.nextDouble() / 2 - 0.25;
         for (int i = 0; i < 5; i++) {
-            var arm = ItemDisplayElementUtil.createSimple(modelStack);
+            var arm = ItemDisplayElementUtil.createSimple(i != 0 ? modelStack : getFirstModel(state));
             arm.setDisplaySize(1, 1);
-            arm.setScale(new Vector3f(2));
-            arm.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(72.5f * i));
+            arm.setScale(new Vector3f(1));
+            arm.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(baseRotation + 72.5f * i));
+            arm.setOffset(new Vec3d(xOffset, 0, zOffset));
             arms.add(arm);
             this.addElement(arm);
         }
@@ -46,6 +59,7 @@ public class ItemDisplayStarfishModel extends BlockModel {
             var state = this.blockState();
             ItemStack modelStack = getModel(state);
             this.arms.forEach(arm -> arm.setItem(modelStack));
+            this.arms.stream().findFirst().get().setItem(getFirstModel(state));
 
             this.tick();
         }
@@ -55,6 +69,13 @@ public class ItemDisplayStarfishModel extends BlockModel {
             case RED -> RED;
             case ORANGE -> ORANGE;
             case PINK -> PINK;
+        };
+    }
+    private ItemStack getFirstModel(BlockState state) {
+        return switch (state.get(RocksMain.STARFISH_VARIATION)) {
+            case RED -> RED_FIRST;
+            case ORANGE -> ORANGE_FIRST;
+            case PINK -> PINK_FIRST;
         };
     }
 }

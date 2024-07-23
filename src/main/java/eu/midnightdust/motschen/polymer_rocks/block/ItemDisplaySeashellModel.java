@@ -9,7 +9,10 @@ import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.RotationAxis;
 import org.joml.Vector3f;
+
+import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplaySeashellModel extends BlockModel {
     private final ItemDisplayElement main;
@@ -27,6 +30,7 @@ public class ItemDisplaySeashellModel extends BlockModel {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(2));
+        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
         this.addElement(this.main);
     }
 

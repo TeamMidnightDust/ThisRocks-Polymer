@@ -27,7 +27,7 @@ public class MixinSeashellBlock implements FactoryBlock {
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, ServerPlayerEntity player) {
-        return Blocks.SANDSTONE.getDefaultState();
+        return Blocks.WHITE_CANDLE.getDefaultState();
     }
 
     @Override

@@ -3,6 +3,7 @@ package eu.midnightdust.motschen.polymer_rocks.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.midnightdust.motschen.rocks.RocksMain;
+import eu.pb4.factorytools.api.item.ModeledItem;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
 import net.minecraft.item.Item;
@@ -28,15 +29,13 @@ public class MixinRocksMain {
     @Shadow public static List<ItemStack> groupItems;
 
     @WrapOperation(method = "onInitialize", at = @At(value = "INVOKE", target = "Leu/midnightdust/motschen/rocks/RocksMain;simpleItem()Lnet/minecraft/item/Item;"))
-    private Item yourHandlerMethod(Operation<Item> original) {
-        return new SimplePolymerItem(new Item.Settings(), Items.FLINT);
+    private Item registerPolymerItem(Operation<Item> original) {
+        return new ModeledItem(Items.FLINT, new Item.Settings());
     }
 
     @Inject(method = "registerItemGroup", at = @At("HEAD"), cancellable = true)
     private static void registerPolymerGroup(CallbackInfo ci) {
-        RocksGroup = PolymerItemGroupUtils.builder().displayName(Text.translatable("itemGroup.rocks.rocks")).icon(() -> new ItemStack(Rock)).entries((displayContext, entries) -> {
-            entries.addAll(groupItems);
-        }).build();
+        RocksGroup = PolymerItemGroupUtils.builder().displayName(Text.translatable("itemGroup.rocks.rocks")).icon(() -> new ItemStack(Rock)).entries((displayContext, entries) -> entries.addAll(groupItems)).build();
         PolymerItemGroupUtils.registerPolymerItemGroup(Identifier.of("rocks", "rocks"), RocksGroup);
         ci.cancel();
     }
