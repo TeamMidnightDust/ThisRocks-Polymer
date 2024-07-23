@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinRocksRegistryUtils {
     @Shadow public static void registerItem(Identifier id, Item item) {}
 
-    @Inject(method = "registerBlockWithItem", at = @At(value = "INVOKE", target = "Leu/midnightdust/motschen/rocks/RocksRegistryUtils;registerItem(Lnet/minecraft/util/Identifier;Lnet/minecraft/item/Item;)V", shift = At.Shift.BEFORE), cancellable = true)
+    @Inject(method = "registerBlockWithItem", at = @At(value = "TAIL", shift = At.Shift.BY, by = -1), remap = false, cancellable = true)
     private static void registerPolymerBlockItem(Identifier id, Block block, CallbackInfo ci) {
         if (block instanceof Starfish) registerItem(id, new StarfishBlockItem((Block & PolymerBlock) block, new Item.Settings(), Items.KELP));
         else registerItem(id, new FactoryBlockItem((Block & PolymerBlock) block, new Item.Settings(), Items.KELP));
