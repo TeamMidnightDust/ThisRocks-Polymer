@@ -21,7 +21,8 @@ public class MixinStarfishBlock implements FactoryBlock {
 
     @Override
     public BlockState getPolymerBlockState(BlockState state) {
-        return Blocks.BARRIER.getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED));
+        if (state.get(WATERLOGGED)) return Blocks.BARRIER.getDefaultState().with(WATERLOGGED, true);
+        else return Blocks.STRUCTURE_VOID.getDefaultState();
     }
 
     @Override

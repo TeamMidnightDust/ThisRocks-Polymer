@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public class MixinRockBlock implements FactoryBlock {
     @Override
     public BlockState getPolymerBlockState(BlockState state) {
-        return Blocks.BARRIER.getDefaultState();
+        return Blocks.STRUCTURE_VOID.getDefaultState();
     }
 
     @Override
