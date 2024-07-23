@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "polymer-rocks",
+  "version": "${version}",
+
+  "name": "Polymer Rocks!",
+  "description": "Adds little rocks, sticks, pinecones, seashells and starfish to your world to make it feel more natural.",
+  "authors": [
+    "Motschen",
+    "TeamMidnightDust"
+  ],
+  "contact": {
+    "homepage": "https://www.midnightdust.eu/",
+    "issues": "https://github.com/TeamMidnightDust/ThisRocks/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/rocks/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain"
+    ]
+  },
+
+  "mixins": [
+    "polymer-rocks.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "fabric": "*"
+  }
+}
