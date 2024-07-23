@@ -1,6 +1,6 @@
 package eu.midnightdust.motschen.polymer_rocks.mixin.block;
 
-import eu.midnightdust.motschen.polymer_rocks.block.ItemDisplayGeyserModel;
+import eu.midnightdust.motschen.polymer_rocks.block.ItemDisplayOverworldGeyserModel;
 import eu.midnightdust.motschen.rocks.block.OverworldGeyser;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
@@ -26,6 +26,6 @@ public class MixinOverworldGeyserBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayGeyserModel(initialBlockState);
+        return new ItemDisplayOverworldGeyserModel(initialBlockState);
     }
 }

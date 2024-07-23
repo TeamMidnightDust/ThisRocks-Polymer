@@ -1,6 +1,7 @@
 package eu.midnightdust.motschen.polymer_rocks.block;
 
 import eu.midnightdust.motschen.rocks.RocksMain;
+import eu.midnightdust.motschen.rocks.block.OverworldGeyser;
 import eu.pb4.factorytools.api.resourcepack.BaseItemProvider;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
@@ -9,22 +10,22 @@ import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
-public class ItemDisplayStickModel extends BlockModel {
+
+public class ItemDisplayOverworldGeyserModel extends BlockModel {
     private final ItemDisplayElement main;
-    public static ItemStack SMALL_OAK_STICK_MODEL;
-    public static ItemStack MEDIUM_OAK_STICK_MODEL;
-    public static ItemStack LARGE_OAK_STICK_MODEL;
+    public static ItemStack OVERWORLD_OFF;
+    public static ItemStack OVERWORLD_ON;
 
     public static void initModels() {
-        // TODO: Add models for the different wood types
-        SMALL_OAK_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_oak_stick"));
-        MEDIUM_OAK_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_oak_stick"));
-        LARGE_OAK_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_oak_stick"));
+        OVERWORLD_OFF = BaseItemProvider.requestModel(RocksMain.id("block/geyser_off"));
+        OVERWORLD_ON = BaseItemProvider.requestModel(RocksMain.id("block/geyser_on"));
     }
 
-    public ItemDisplayStickModel(BlockState state) {
+    public ItemDisplayOverworldGeyserModel(BlockState state) {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(2));
@@ -36,15 +37,13 @@ public class ItemDisplayStickModel extends BlockModel {
         if (updateType == BlockAwareAttachment.BLOCK_STATE_UPDATE) {
             var state = this.blockState();
             this.main.setItem(getModel(state));
+            if (state.contains(Properties.SNOWY) && state.get(Properties.SNOWY)) this.main.setOverridePos(new Vec3d(0d, 0.125d, 0d));
+            else this.main.setOverridePos(new Vec3d(0, 0, 0));
 
             this.tick();
         }
     }
     private ItemStack getModel(BlockState state) {
-        return switch (state.get(RocksMain.STICK_VARIATION)) {
-            case SMALL -> SMALL_OAK_STICK_MODEL;
-            case MEDIUM -> MEDIUM_OAK_STICK_MODEL;
-            case LARGE -> LARGE_OAK_STICK_MODEL;
-        };
+        return state.get(OverworldGeyser.ACTIVE) ? OVERWORLD_ON : OVERWORLD_OFF;
     }
 }
