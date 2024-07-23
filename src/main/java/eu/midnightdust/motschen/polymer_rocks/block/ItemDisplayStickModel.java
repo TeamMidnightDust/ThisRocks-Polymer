@@ -1,5 +1,6 @@
 package eu.midnightdust.motschen.polymer_rocks.block;
 
+import eu.midnightdust.motschen.polymer_rocks.PolymerRocksConfig;
 import eu.midnightdust.motschen.rocks.RocksMain;
 import eu.pb4.factorytools.api.resourcepack.BaseItemProvider;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
@@ -88,6 +89,7 @@ public class ItemDisplayStickModel extends BlockModel {
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(1));
         this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
+        this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);
     }
 

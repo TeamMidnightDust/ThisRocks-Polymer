@@ -18,6 +18,7 @@ public class PolymerRocksMain implements ModInitializer {
     public static final Random random = Random.create();
 
     public void onInitialize() {
+        PolymerRocksConfig.init("polymer-rocks", PolymerRocksConfig.class);
         PolymerResourcePackUtils.addModAssets(MOD_ID);
         PolymerResourcePackUtils.addModAssets("polymer-rocks");
 

@@ -1,5 +1,6 @@
 package eu.midnightdust.motschen.polymer_rocks.block;
 
+import eu.midnightdust.motschen.polymer_rocks.PolymerRocksConfig;
 import eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain;
 import eu.midnightdust.motschen.rocks.RocksMain;
 import eu.pb4.factorytools.api.resourcepack.BaseItemProvider;
@@ -48,6 +49,7 @@ public class ItemDisplayStarfishModel extends BlockModel {
             arm.setScale(new Vector3f(1));
             arm.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(baseRotation + 72.5f * i));
             arm.setOffset(new Vec3d(xOffset, 0, zOffset));
+            arm.setViewRange(0.4f * (PolymerRocksConfig.viewDistance / 100f));
             arms.add(arm);
             this.addElement(arm);
         }

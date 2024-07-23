@@ -1,5 +1,6 @@
 package eu.midnightdust.motschen.polymer_rocks.block;
 
+import eu.midnightdust.motschen.polymer_rocks.PolymerRocksConfig;
 import eu.midnightdust.motschen.rocks.RocksMain;
 import eu.midnightdust.motschen.rocks.block.OverworldGeyser;
 import eu.pb4.factorytools.api.resourcepack.BaseItemProvider;
@@ -34,6 +35,7 @@ public class ItemDisplayOverworldGeyserModel extends BlockModel {
         this.main.setScale(new Vector3f(2));
         this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
         if (state.contains(Properties.SNOWY) && state.get(Properties.SNOWY)) this.main.setOffset(new Vec3d(0d, 0.125d, 0d));
+        this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);
     }
 
