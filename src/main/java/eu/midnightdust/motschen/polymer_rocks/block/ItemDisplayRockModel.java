@@ -10,10 +10,9 @@ import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Vector3f;
-
-import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayRockModel extends BlockModel {
     private final ItemDisplayElement main;
@@ -49,6 +48,10 @@ public class ItemDisplayRockModel extends BlockModel {
     public static ItemStack SMALL_NETHERRACK_ROCK_MODEL;
     public static ItemStack MEDIUM_NETHERRACK_ROCK_MODEL;
     public static ItemStack LARGE_NETHERRACK_ROCK_MODEL;
+    public static ItemStack TINY_SOUL_SOIL_ROCK_MODEL;
+    public static ItemStack SMALL_SOUL_SOIL_ROCK_MODEL;
+    public static ItemStack MEDIUM_SOUL_SOIL_ROCK_MODEL;
+    public static ItemStack LARGE_SOUL_SOIL_ROCK_MODEL;
     public static ItemStack TINY_ENDSTONE_ROCK_MODEL;
     public static ItemStack SMALL_ENDSTONE_ROCK_MODEL;
     public static ItemStack MEDIUM_ENDSTONE_ROCK_MODEL;
@@ -96,17 +99,22 @@ public class ItemDisplayRockModel extends BlockModel {
         MEDIUM_NETHERRACK_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_netherrack_rock"));
         LARGE_NETHERRACK_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_netherrack_rock"));
 
+        TINY_SOUL_SOIL_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/tiny_soul_soil_rock"));
+        SMALL_SOUL_SOIL_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_soul_soil_rock"));
+        MEDIUM_SOUL_SOIL_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_soul_soil_rock"));
+        LARGE_SOUL_SOIL_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_soul_soil_rock"));
+
         TINY_ENDSTONE_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/tiny_end_stone_rock"));
         SMALL_ENDSTONE_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_end_stone_rock"));
         MEDIUM_ENDSTONE_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_end_stone_rock"));
         LARGE_ENDSTONE_ROCK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_end_stone_rock"));
     }
 
-    public ItemDisplayRockModel(BlockState state) {
+    public ItemDisplayRockModel(BlockState state, BlockPos pos) {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(2));
-        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
+        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(90 * (pos.hashCode() % 4)));
         this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);
     }
@@ -183,6 +191,14 @@ public class ItemDisplayRockModel extends BlockModel {
                 case SMALL -> SMALL_NETHERRACK_ROCK_MODEL;
                 case MEDIUM -> MEDIUM_NETHERRACK_ROCK_MODEL;
                 case LARGE -> LARGE_NETHERRACK_ROCK_MODEL;
+            };
+        }
+        else if (state.getBlock() == RocksMain.SoulSoilRock) {
+            return switch (state.get(RocksMain.ROCK_VARIATION)) {
+                case TINY -> TINY_SOUL_SOIL_ROCK_MODEL;
+                case SMALL -> SMALL_SOUL_SOIL_ROCK_MODEL;
+                case MEDIUM -> MEDIUM_SOUL_SOIL_ROCK_MODEL;
+                case LARGE -> LARGE_SOUL_SOIL_ROCK_MODEL;
             };
         }
         else  {

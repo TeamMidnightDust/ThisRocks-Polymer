@@ -31,6 +31,6 @@ public class MixinOverworldGeyserBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayOverworldGeyserModel(initialBlockState);
+        return new ItemDisplayOverworldGeyserModel(initialBlockState, pos);
     }
 }

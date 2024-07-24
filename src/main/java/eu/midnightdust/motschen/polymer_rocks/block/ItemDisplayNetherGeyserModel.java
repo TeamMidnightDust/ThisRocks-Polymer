@@ -13,11 +13,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.decoration.Brightness;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
-
-import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayNetherGeyserModel extends BlockModel {
     private final ItemDisplayElement main;
@@ -28,11 +27,12 @@ public class ItemDisplayNetherGeyserModel extends BlockModel {
         NETHER = BaseItemProvider.requestModel(RocksMain.id("block/nether_geyser_off"));
     }
 
-    public ItemDisplayNetherGeyserModel(BlockState state) {
+    public ItemDisplayNetherGeyserModel(BlockState state, BlockPos pos) {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(2));
-        int rotation = random.nextBetween(0, 360);
+        int rotation = pos.hashCode() % 360;
+        System.out.println(pos.hashCode() + " " + rotation + " " + pos.hashCode() % 360);
         this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
         this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);

@@ -32,6 +32,6 @@ public class MixinStarfishBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayStarfishModel(initialBlockState);
+        return new ItemDisplayStarfishModel(initialBlockState, pos);
     }
 }

@@ -8,13 +8,11 @@ import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.virtualentity.api.attachment.BlockAwareAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Vector3f;
-
-import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayStickModel extends BlockModel {
     private final ItemDisplayElement main;
@@ -36,6 +34,12 @@ public class ItemDisplayStickModel extends BlockModel {
     public static ItemStack SMALL_JUNGLE_STICK_MODEL;
     public static ItemStack MEDIUM_JUNGLE_STICK_MODEL;
     public static ItemStack LARGE_JUNGLE_STICK_MODEL;
+    public static ItemStack SMALL_CHERRY_STICK_MODEL;
+    public static ItemStack MEDIUM_CHERRY_STICK_MODEL;
+    public static ItemStack LARGE_CHERRY_STICK_MODEL;
+    public static ItemStack SMALL_MANGROVE_STICK_MODEL;
+    public static ItemStack MEDIUM_MANGROVE_STICK_MODEL;
+    public static ItemStack LARGE_MANGROVE_STICK_MODEL;
     public static ItemStack SMALL_BAMBOO_STICK_MODEL;
     public static ItemStack MEDIUM_BAMBOO_STICK_MODEL;
     public static ItemStack LARGE_BAMBOO_STICK_MODEL;
@@ -71,6 +75,14 @@ public class ItemDisplayStickModel extends BlockModel {
         MEDIUM_JUNGLE_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_jungle_stick"));
         LARGE_JUNGLE_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_jungle_stick"));
 
+        SMALL_CHERRY_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_cherry_stick"));
+        MEDIUM_CHERRY_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_cherry_stick"));
+        LARGE_CHERRY_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_cherry_stick"));
+
+        SMALL_MANGROVE_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_mangrove_stick"));
+        MEDIUM_MANGROVE_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_mangrove_stick"));
+        LARGE_MANGROVE_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_mangrove_stick"));
+
         SMALL_BAMBOO_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/small_bamboo_stick"));
         MEDIUM_BAMBOO_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/medium_bamboo_stick"));
         LARGE_BAMBOO_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_bamboo_stick"));
@@ -84,11 +96,11 @@ public class ItemDisplayStickModel extends BlockModel {
         LARGE_CRIMSON_STICK_MODEL = BaseItemProvider.requestModel(RocksMain.id("block/large_crimson_stick"));
     }
 
-    public ItemDisplayStickModel(BlockState state) {
+    public ItemDisplayStickModel(BlockState state, BlockPos pos) {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(1));
-        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
+        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(90 * (pos.hashCode() % 4)));
         this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);
     }
@@ -144,6 +156,20 @@ public class ItemDisplayStickModel extends BlockModel {
                 case SMALL -> SMALL_JUNGLE_STICK_MODEL;
                 case MEDIUM -> MEDIUM_JUNGLE_STICK_MODEL;
                 case LARGE -> LARGE_JUNGLE_STICK_MODEL;
+            };
+        }
+        else if (block == RocksMain.CherryStick) {
+            return switch (state.get(RocksMain.STICK_VARIATION)) {
+                case SMALL -> SMALL_CHERRY_STICK_MODEL;
+                case MEDIUM -> MEDIUM_CHERRY_STICK_MODEL;
+                case LARGE -> LARGE_CHERRY_STICK_MODEL;
+            };
+        }
+        else if (block == RocksMain.MangroveStick) {
+            return switch (state.get(RocksMain.STICK_VARIATION)) {
+                case SMALL -> SMALL_MANGROVE_STICK_MODEL;
+                case MEDIUM -> MEDIUM_MANGROVE_STICK_MODEL;
+                case LARGE -> LARGE_MANGROVE_STICK_MODEL;
             };
         }
         else if (block == RocksMain.BambooStick) {

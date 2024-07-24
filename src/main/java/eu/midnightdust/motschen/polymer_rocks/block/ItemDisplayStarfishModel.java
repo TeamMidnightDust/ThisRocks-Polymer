@@ -11,14 +11,13 @@ import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayStarfishModel extends BlockModel {
     private final Set<ItemDisplayElement> arms = HashSet.newHashSet(5);
@@ -38,11 +37,11 @@ public class ItemDisplayStarfishModel extends BlockModel {
         PINK_FIRST = BaseItemProvider.requestModel(PolymerRocksMain.id("block/starfish_pink_first_arm"));
     }
 
-    public ItemDisplayStarfishModel(BlockState state) {
+    public ItemDisplayStarfishModel(BlockState state, BlockPos pos) {
         ItemStack modelStack = getModel(state);
-        int baseRotation = random.nextBetween(0, 360);
-        double xOffset = random.nextDouble() / 2 - 0.25;
-        double zOffset = random.nextDouble() / 2 - 0.25;
+        int baseRotation = pos.hashCode() % 360;
+        double xOffset = ((pos.hashCode() + pos.getX()) % 50 - 25) / 100f;
+        double zOffset = ((pos.hashCode() + pos.getZ()) % 50 - 25) / 100f;
         for (int i = 0; i < 5; i++) {
             var arm = ItemDisplayElementUtil.createSimple(i != 0 ? modelStack : getFirstModel(state));
             arm.setDisplaySize(1, 1);

@@ -28,6 +28,6 @@ public class MixinNetherGeyserBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayNetherGeyserModel(initialBlockState);
+        return new ItemDisplayNetherGeyserModel(initialBlockState, pos);
     }
 }

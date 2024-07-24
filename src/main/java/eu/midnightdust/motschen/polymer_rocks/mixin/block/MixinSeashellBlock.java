@@ -32,6 +32,6 @@ public class MixinSeashellBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplaySeashellModel(initialBlockState);
+        return new ItemDisplaySeashellModel(initialBlockState, pos);
     }
 }

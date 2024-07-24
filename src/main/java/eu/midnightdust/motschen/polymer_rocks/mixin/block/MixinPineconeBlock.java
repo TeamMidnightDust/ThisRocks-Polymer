@@ -28,6 +28,6 @@ public class MixinPineconeBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayPineconeModel(initialBlockState);
+        return new ItemDisplayPineconeModel(initialBlockState, pos);
     }
 }

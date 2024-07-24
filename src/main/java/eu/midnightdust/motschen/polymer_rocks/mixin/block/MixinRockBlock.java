@@ -28,6 +28,6 @@ public class MixinRockBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayRockModel(initialBlockState);
+        return new ItemDisplayRockModel(initialBlockState, pos);
     }
 }

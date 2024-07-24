@@ -28,6 +28,6 @@ public class MixinStickBlock implements FactoryBlock {
 
     @Override
     public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
-        return new ItemDisplayStickModel(initialBlockState);
+        return new ItemDisplayStickModel(initialBlockState, pos);
     }
 }
