@@ -5,7 +5,7 @@
   "mixins": [
     "MixinRocksMain",
     "MixinBlockEntityInit",
-    "MixinRocksRegistryUtils",
+    "MixinRegistryUtil",
     "block.MixinRockBlock",
     "block.MixinStickBlock",
     "block.MixinPineconeBlock",

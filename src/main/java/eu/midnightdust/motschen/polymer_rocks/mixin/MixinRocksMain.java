@@ -32,10 +32,6 @@ public class MixinRocksMain {
     private static Item simplePolymerItem(Operation<Item> original) {
         return new ModeledItem(Items.FLINT, new Item.Settings());
     }
-//    @WrapOperation(method = "onInitialize", at = @At(value = "INVOKE", target = "Leu/midnightdust/motschen/rocks/RocksMain;simpleItem()Lnet/minecraft/item/Item;"))
-//    private Item registerPolymerItem(Operation<Item> original) {
-//        return new ModeledItem(Items.FLINT, new Item.Settings());
-//    }
 
     @Inject(method = "registerItemGroup", at = @At("HEAD"), cancellable = true)
     private static void registerPolymerGroup(CallbackInfo ci) {
