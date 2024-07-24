@@ -10,41 +10,53 @@ import eu.pb4.polymer.virtualentity.api.attachment.BlockAwareAttachment;
 import eu.pb4.polymer.virtualentity.api.attachment.HolderAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.decoration.Brightness;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 import static eu.midnightdust.motschen.polymer_rocks.PolymerRocksMain.random;
 
 public class ItemDisplayNetherGeyserModel extends BlockModel {
-    private final ItemDisplayElement main;;
-    public static ItemStack NETHER_OFF;
-    public static ItemStack NETHER_ON;
+    private final ItemDisplayElement main;
+    private final ItemDisplayElement magma;
+    public static ItemStack NETHER;
 
     public static void initModels() {
-        NETHER_OFF = BaseItemProvider.requestModel(RocksMain.id("block/nether_geyser_off"));
-        NETHER_ON = BaseItemProvider.requestModel(RocksMain.id("block/nether_geyser_on"));
+        NETHER = BaseItemProvider.requestModel(RocksMain.id("block/nether_geyser_off"));
     }
 
     public ItemDisplayNetherGeyserModel(BlockState state) {
         this.main = ItemDisplayElementUtil.createSimple(getModel(state));
         this.main.setDisplaySize(1, 1);
         this.main.setScale(new Vector3f(2));
-        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(random.nextBetween(0, 360)));
+        int rotation = random.nextBetween(0, 360);
+        this.main.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
         this.main.setViewRange(0.75f * (PolymerRocksConfig.viewDistance / 100f));
         this.addElement(this.main);
+
+        this.magma = ItemDisplayElementUtil.createSimple(new ItemStack(Items.MAGMA_BLOCK));
+        this.magma.setDisplaySize(1, 1);
+        this.magma.setScale(new Vector3f(0.73f, 0.01f, 0.73f));
+        this.magma.setRightRotation(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
+        this.magma.setBrightness(Brightness.FULL);
+        this.magma.setOffset(new Vec3d(0d, -0.48d, 0d));
+        this.magma.setViewRange(state.get(NetherGeyser.ACTIVE) ? (0.75f * (PolymerRocksConfig.viewDistance / 100f)) : 0);
+        this.addElement(this.magma);
     }
 
     @Override
     public void notifyUpdate(HolderAttachment.UpdateType updateType) {
         if (updateType == BlockAwareAttachment.BLOCK_STATE_UPDATE) {
             var state = this.blockState();
-            this.main.setItem(getModel(state));
+            this.magma.setViewRange(state.get(NetherGeyser.ACTIVE) ? (0.75f * (PolymerRocksConfig.viewDistance / 100f)) : 0);
 
             this.tick();
         }
     }
     private ItemStack getModel(BlockState state) {
-        return state.get(NetherGeyser.ACTIVE) ? NETHER_ON : NETHER_OFF;
+        return NETHER;
     }
 }

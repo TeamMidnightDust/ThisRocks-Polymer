@@ -4,14 +4,14 @@
   "version": "${version}",
 
   "name": "Polymer Rocks!",
-  "description": "Adds little rocks, sticks, pinecones, seashells and starfish to your world to make it feel more natural.",
+  "description": "Adds little rocks, sticks, pinecones, seashells and starfish to your world – entirely server-sided!",
   "authors": [
     "Motschen",
     "TeamMidnightDust"
   ],
   "contact": {
     "homepage": "https://www.midnightdust.eu/",
-    "issues": "https://github.com/TeamMidnightDust/ThisRocks/issues"
+    "issues": "https://github.com/TeamMidnightDust/ThisRocksPolymer/issues"
   },
 
   "license": "MIT",
