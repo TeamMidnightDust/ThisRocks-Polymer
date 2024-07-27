@@ -40,8 +40,8 @@ public class ItemDisplayStarfishModel extends BlockModel {
     public ItemDisplayStarfishModel(BlockState state, BlockPos pos) {
         ItemStack modelStack = getModel(state);
         int baseRotation = pos.hashCode() % 360;
-        double xOffset = ((pos.hashCode() + pos.getX()) % 50 - 25) / 100f;
-        double zOffset = ((pos.hashCode() + pos.getZ()) % 50 - 25) / 100f;
+        double xOffset = ((pos.hashCode() + pos.getX()) % 250 - 125) / 1000f;
+        double zOffset = ((pos.hashCode() + pos.getZ()) % 250 - 125) / 1000f;
         for (int i = 0; i < 5; i++) {
             var arm = ItemDisplayElementUtil.createSimple(i != 0 ? modelStack : getFirstModel(state));
             arm.setDisplaySize(1, 1);
